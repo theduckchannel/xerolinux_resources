@@ -1,2 +1,19 @@
 #!/bin/bash
 
+
+fstype=$(df -Th / | sed -n 2p | cut -d" " -f 7)
+
+
+btrfs()
+{
+    echo "btrfs filesystem..."
+    echo "do you want snapper or timeshift"
+}
+
+
+case $fstype in 
+    "btrfs") btrfs ;;
+    "ext4") echo "Filesystem is EXT4!" ;;
+    *) echo "Opcao Invalida!" ;;
+
+esac
