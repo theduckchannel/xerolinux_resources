@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-fstype=$('/usr/local/bin/getfstype.sh')
+fstype=$('/usr/local/bin/xerolinux_resources/getfstype.sh')
 
 timeshift_install () {
    konsole -e paru -S timeshift timeshift-autosnap
