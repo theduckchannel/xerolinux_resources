@@ -11,7 +11,7 @@ btrfs()
 }
 
 
-case $fstype in 
+case $? in 
     "btrfs") btrfs ;;
     "ext4") echo "Filesystem is EXT4!" ;;
     *) echo "Opcao Invalida!" ;;
