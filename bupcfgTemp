@@ -1,25 +1,28 @@
 #!/bin/bash
 
 
-fstype=$(df -Th / | sed -n 2p | cut -d" " -f 7)
-
-#yad --image dialog-question --title Alert --button=snapper:0 --button=Timeshift:1 --text "What snapshot utility do you want use?"
-
+fstype=$('/usr/local/bin/getfstype.sh')
 
 timeshift_install () {
-   konsole -e paru -S timeshift
+   konsole -e paru -S timeshift timeshift-autosnap
 }
 
 
+snapper_install() {
+    /usr/local/bin/snapcfg 
+}
 
 
 if [ $fstype = "btrfs" ]; then
     yad --image dialog-question \
-        --title Question --button=snapper:0 \
-        --button=Timeshift:1 --button=Cancel:2 \
+        --title Question \
+        --button=Snapper:0 \
+        --button=Timeshift:1 \
+        --button=Cancel:2 \
         --text "What snapshot utility do you want use?"
     case $? in 
-        0) timeshift_install ;;
+        0) snapper_install ;;
+        1) timeshift_install ;;
     esac
 
 else
