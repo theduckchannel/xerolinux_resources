@@ -3,17 +3,37 @@
 
 fstype=$(df -Th / | sed -n 2p | cut -d" " -f 7)
 
+#yad --image dialog-question --title Alert --button=snapper:0 --button=Timeshift:1 --text "What snapshot utility do you want use?"
 
-btrfs()
-{
-    echo "btrfs filesystem..."
-    yad --image dialog-question --title Alert --button=snapper:0 --button=Timeshift:1 --text "What snapshot utility do you want use?"
+
+timeshift_install () {
+   konsole -e paru -S timeshift
 }
 
 
-case $? in 
-    "btrfs") btrfs ;;
-    "ext4") echo "Filesystem is EXT4!" ;;
-    *) echo "Opcao Invalida!" ;;
 
-esac
+
+if [ $fstype = "btrfs" ]; then
+    yad --image dialog-question \
+        --title Question --button=snapper:0 \
+        --button=Timeshift:1 --button=Cancel:2 \
+        --text "What snapshot utility do you want use?"
+    case $? in 
+        0) timeshift_install ;;
+    esac
+
+else
+     yad --image dialog-question \
+        --title Question --button=Yes:0 \
+        --button=No:1 \
+        --text "You want install Timeshift in your system?"
+
+
+    case $? in 
+        0) timeshift_install ;;
+    esac
+fi
+
+
+exit 0
+
