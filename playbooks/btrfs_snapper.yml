@@ -13,7 +13,7 @@
     register: username
   - debug: var=username.stdout
    
-   - name: Install snapper and snapper-gui-git
+  - name: Install snapper and snapper-gui-git
     kewlfft.aur.aur:
       name: 
         - snapper
