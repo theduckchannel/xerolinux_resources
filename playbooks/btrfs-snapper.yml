@@ -20,6 +20,7 @@
         - snap-pac-grub
       use: paru
       state: present
+    become: no        
 
   - name: Config /.snapshots Subvolume
     shell: |
