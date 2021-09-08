@@ -9,8 +9,7 @@ timeshift_question () {
 
 
 btrfs_question() {
-    yad --image dialog-question \        
-        --title Question \
+    yad --image dialog-question  --title "Xerolinux btrfs question" \
         --button=Snapper:0 \
         --button=Timeshift:1 \
         --button=Cancel:2 \
