@@ -3,20 +3,30 @@
 
 fstype=$(df -Th / | sed -n 2p |  cut -d" " -f 7)
 
-timeshift_install () {
-   konsole -e paru -S timeshift timeshift-autosnap
+timeshift_question () {
+    echo "timeshift here"
 }
 
 
-snapper_install() {
-    /usr/local/bin/snapcfg 
+btrfs_question() {
+    yad --image dialog-question \        
+        --title Question \
+        --button=Snapper:0 \
+        --button=Timeshift:1 \
+        --button=Cancel:2 \
+        --text "What snapshot utility do you want use?"
+
+    case $? in
+        0) snapper_install ;;
+        1) timeshift_install ;;
+    esac
 }
 
 echo "file system type: $fstype"
 
 case "$fstype" in
     #case btrfs
-    "btrfs") echo "btrfs filesystem" ;;
+    "btrfs") btrfs_question ;;
     # no btrfs? ok
     *) echo "ext4 filesystem" ;;
 esac
