@@ -3,10 +3,11 @@
 
 fstype=$(df -Th / | sed -n 2p |  cut -d" " -f 7)
 
-timeshift_question () {
-    echo "timeshift here"
-}
 
+
+timeshift_ext4() {
+
+}
 
 btrfs_snapper() {
     ansible-playbook $(pwd)/playbooks/btrfs-snapper.yml
@@ -16,6 +17,18 @@ btrfs_timeshit() {
 
 }
 
+timeshift_question () {
+     yad --image dialog-question  --title "Xerolinux Timeshift question" \
+        --button=Ok:0 \
+        --button=Cancel:1 \
+        --text "Do you want use Timeshift?"
+
+    case $? in
+        0) timeshift_ext4 ;;
+        1) echo "exit" ;;
+    esac
+   
+}
 
 btrfs_question() {
     yad --image dialog-question  --title "Xerolinux btrfs question" \
