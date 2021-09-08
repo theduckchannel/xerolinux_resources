@@ -5,7 +5,7 @@
 INPUT=$(echo -e "one \naple \ntwo\nbanana \ntree \ncitrine \nfour \nnewfruit")
 
 
-VAR2=$( echo "$INPUT" | yad --title="Xerolinux btrfs Rollback" \
+RESPONSE=$(yad --title="Xerolinux btrfs Rollback" \
 --text="Select the snapshot to rollback:" \
 --borders=10 \
 --listen \
@@ -21,6 +21,6 @@ VAR2=$( echo "$INPUT" | yad --title="Xerolinux btrfs Rollback" \
 --button="OK"!go-jump:0 \
 --button="exit":1 )
 
-echo "  DEBUG: VAR2 = $VAR2"
+echo "  DEBUG: RESPONSE = $RESPONSE"
 
 
