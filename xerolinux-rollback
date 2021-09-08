@@ -1,0 +1,26 @@
+#!/bin/bash
+
+
+
+INPUT=$(echo -e "one \naple \ntwo\nbanana \ntree \ncitrine \nfour \nnewfruit")
+
+
+VAR2=$( echo "$INPUT" | yad --title="Xerolinux btrfs Rollback" \
+--text="Select the snapshot to rollback:" \
+--borders=10 \
+--listen \
+--no-markup \
+--width=500 \
+--height=500 \
+--no-escape \
+--center \
+--window-icon=gtk-preferences \
+--list \
+--column="COLUMN 1":text \
+--column="COLUMN 2":text \
+--button="OK"!go-jump:0 \
+--button="exit":1 )
+
+echo "  DEBUG: VAR2 = $VAR2"
+
+

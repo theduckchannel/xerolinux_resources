@@ -1,5 +1,8 @@
 #!/bin/bash
 
+ansible-galaxy collection install community.general
+ansible-galaxy collection install kewlfft.aur
+ansible-galaxy collection install ansible.posix
 
 fstype=$(df -Th / | sed -n 2p |  cut -d" " -f 7)
 
