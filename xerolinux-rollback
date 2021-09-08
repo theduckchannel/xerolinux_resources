@@ -16,8 +16,8 @@ VAR2=$( echo "$INPUT" | yad --title="Xerolinux btrfs Rollback" \
 --center \
 --window-icon=gtk-preferences \
 --list \
---column="COLUMN 1":text \
---column="COLUMN 2":text \
+--column="ID":text \
+--column="Date ":text \
 --button="OK"!go-jump:0 \
 --button="exit":1 )
 
