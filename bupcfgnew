@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-fstype=$('/usr/local/bin/xerolinux_resources/getfstype.sh')
+fstype=$('df -Th / | sed -n 2p |  cut -d" " -f 7')
 
 timeshift_install () {
    konsole -e paru -S timeshift timeshift-autosnap
@@ -12,30 +12,7 @@ snapper_install() {
     /usr/local/bin/snapcfg 
 }
 
-
-if [ $fstype = "btrfs" ]; then
-    yad --image dialog-question \
-        --title Question \
-        --button=Snapper:0 \
-        --button=Timeshift:1 \
-        --button=Cancel:2 \
-        --text "What snapshot utility do you want use?"
-    case $? in 
-        0) snapper_install ;;
-        1) timeshift_install ;;
-    esac
-
-else
-     yad --image dialog-question \
-        --title Question --button=Yes:0 \
-        --button=No:1 \
-        --text "You want install Timeshift in your system?"
-
-
-    case $? in 
-        0) timeshift_install ;;
-    esac
-fi
+echo "file system type: $fstype"
 
 
 exit 0
