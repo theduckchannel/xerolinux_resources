@@ -1,12 +1,11 @@
 ---
 - hosts: localhost
+  vars_prompt:
+    - name: "ansible_become_pass"
+      prompt: "Sudo password"
+      private: yes  
   become: yes
   tasks:
-  - name: Find Current Dir 
-    shell: pwd
-    register: current_dir
-  - debug: var=current_dir.stdout
-
   - name: Get Username 
     become: false
     shell: whoami
@@ -47,6 +46,7 @@
       sudo chmod a+rx /.snapshots
       sudo chmod 750 /.snapshots
       sudo chown :wheel /.snapshots
+
    
   - name: /etc/snapper/configs/root (Snapper Users)
     ansible.builtin.lineinfile:
