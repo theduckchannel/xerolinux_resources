@@ -9,7 +9,7 @@ timeshift_question () {
 
 
 btrfs_snapper() {
-
+    ansible-playbook $(pwd)/playbooks/btrfs-snapper.yml
 }
 
 btrfs_timeshit() {
