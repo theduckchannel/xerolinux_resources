@@ -16,7 +16,7 @@ btrfs_snapper() {
 }
 
 btrfs_timeshit() {
-    echo "teste"
+   ansible-playbook $(pwd)/playbooks/btrfs-timeshift.yml
 }
 
 timeshift_question () {
