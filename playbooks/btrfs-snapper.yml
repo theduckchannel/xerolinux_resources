@@ -15,6 +15,7 @@
   - name: Install snapper and snapper-gui-git
     kewlfft.aur.aur:
       name: 
+        - grub-btrfs
         - snapper
         - snapper-gui-git
         - snap-pac-grub
