@@ -12,12 +12,12 @@
       path: /usr/bin/timeshift
     register: timeshift_present
     
-  - name: Abort if the timeshift present on system
-    fail:
-      msg: "Timeshift present in your system! Exit..."
-    when: timeshift_present
-    tags:
-      - quick_exit
+#  - name: Abort if the timeshift present on system
+#    fail:
+#      msg: "Timeshift present in your system! Exit..."
+#    when: timeshift_present
+#    tags:
+#      - quick_exit
 
 
   - name: Install Timeshift, grub-btrfs and timeshift-snap-pac

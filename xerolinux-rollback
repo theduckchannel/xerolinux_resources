@@ -5,6 +5,9 @@
 INPUT=$(echo -e "one \naple \ntwo\nbanana \ntree \ncitrine \nfour \nnewfruit")
 
 
+lines=$(snapper -c root list | sed '1,2d')
+
+
 RESPONSE=$(yad --title="Xerolinux btrfs Rollback" \
 --text="Select the snapshot to rollback:" \
 --borders=10 \
@@ -16,10 +19,7 @@ RESPONSE=$(yad --title="Xerolinux btrfs Rollback" \
 --center \
 --window-icon=gtk-preferences \
 --list \
---column="ID":`snapper -c root list| sed '1,2d' |cut -d"|" -f 1` \
---column="Date":`snapper -c root list| sed '1,2d' | cut -d"|" -f 4` \
---column="User":`snapper -c root list| sed '1,2d' | cut -d"|" -f 5` \
---column="Timeline":`snapper -c root list| sed '1,2d' | cut -d"|" -f 6` \
+--column="Snapshots": $lines \
 --button="OK"!go-jump:0 \
 --button="exit":1 )
 

@@ -12,10 +12,10 @@
     register: username
   - debug: var=username.stdout
 
-  - name: Check if snapper exists
-    stat:
-      path: /usr/bin/snapper
-    register: snapper_present
+#  - name: Check if snapper exists
+#    stat:
+#      path: /usr/bin/snapper
+#    register: snapper_present
     
   - name: Abort if the snapper present on system
     fail:
