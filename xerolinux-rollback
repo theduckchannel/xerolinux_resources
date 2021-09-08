@@ -16,8 +16,8 @@ RESPONSE=$(yad --title="Xerolinux btrfs Rollback" \
 --center \
 --window-icon=gtk-preferences \
 --list \
---column="ID":`snapper -c root list| cut -d"|" -f 1` \
---column="Date":`snapper -c root list| cut -d"|" -f 3` \
+--column="ID":`snapper -c root list| sed '1,2d' |cut -d"|" -f 1` \
+--column="Date":`snapper -c root list| sed '1,2d' | cut -d"|" -f 3` \
 --button="OK"!go-jump:0 \
 --button="exit":1 )
 
