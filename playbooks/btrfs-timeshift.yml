@@ -6,11 +6,6 @@
       private: yes  
   become: yes
   tasks:
-  - name: Get Username 
-    become: false
-    shell: whoami
-    register: username
-  - debug: var=username.stdout
 
   - name: Install snapper and snapper-gui-git
     kewlfft.aur.aur:
