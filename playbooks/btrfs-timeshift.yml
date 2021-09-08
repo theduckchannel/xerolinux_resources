@@ -7,7 +7,20 @@
   become: yes
   tasks:
 
-  - name: Install snapper and snapper-gui-git
+  - name: Check if Timeshift Exists
+    stat:
+      path: /usr/bin/timeshift
+    register: timeshift_present
+    
+  - name: Abort if the timeshift present on system
+    fail:
+      msg: "Timeshift present in your system! Exit..."
+    when: timeshift_present
+    tags:
+      - quick_exit
+
+
+  - name: Install Timeshift, grub-btrfs and timeshift-snap-pac
     kewlfft.aur.aur:
       name: 
         - grub-btrfs
