@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-fstype=$('df -Th / | sed -n 2p |  cut -d" " -f 7')
+fstype=$(df -Th / | sed -n 2p |  cut -d" " -f 7)
 
 timeshift_install () {
    konsole -e paru -S timeshift timeshift-autosnap
@@ -14,6 +14,12 @@ snapper_install() {
 
 echo "file system type: $fstype"
 
+case "$fstype" in
+    #case btrfs
+    "btrfs") echo "btrfs filesystem" ;;
+    # no btrfs? ok
+    *) echo "ext4 filesystem" ;;
+esac
 
 exit 0
 
