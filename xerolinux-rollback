@@ -2,27 +2,27 @@
 
 
 
-INPUT=$(echo -e "one \naple \ntwo\nbanana \ntree \ncitrine \nfour \nnewfruit")
-
-
-lines=$(snapper -c root list | sed '1,2d')
-
-
-RESPONSE=$(yad --title="Xerolinux btrfs Rollback" \
---text="Select the snapshot to rollback:" \
---borders=10 \
---listen \
---no-markup \
---width=500 \
---height=500 \
---no-escape \
---center \
---window-icon=gtk-preferences \
---list \
---column="Snapshots": $lines \
---button="OK"!go-jump:0 \
---button="exit":1 )
-
-echo "  DEBUG: RESPONSE = $RESPONSE"
+#INPUT=$(echo -e "one \naple \ntwo\nbanana \ntree \ncitrine \nfour \nnewfruit")
+#
+#
+#lines=$(snapper -c root list | sed '1,2d')
+#
+#
+#RESPONSE=$(yad --title="Xerolinux btrfs Rollback" \
+#--text="Select the snapshot to rollback:" \
+#--borders=10 \
+#--listen \
+#--no-markup \
+#--width=500 \
+#--height=500 \
+#--no-escape \
+#--center \
+#--window-icon=gtk-preferences \
+#--list \
+#--column="Snapshots": $lines \
+#--button="OK"!go-jump:0 \
+#--button="exit":1 )
+#
+#echo "  DEBUG: RESPONSE = $RESPONSE"
 
 
