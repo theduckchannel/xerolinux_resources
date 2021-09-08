@@ -24,9 +24,11 @@ btrfs_timeshit() {
 
 timeshift_question () {
      yad --image dialog-question  --title "Xerolinux Timeshift question" \
-        --button=Ok:0 \
-        --button=Cancel:1 \
-        --text "Do you want use Timeshift?"
+         --center \
+         --width=500 \
+         --button=Ok:0 \
+         --button=Cancel:1 \
+         --text "Do you want use Timeshift?"
 
     case $? in
         0) timeshift_ext4 ;;
@@ -37,6 +39,8 @@ timeshift_question () {
 
 btrfs_question() {
     yad --image dialog-question  --title "Xerolinux btrfs question" \
+        --center \
+        --width=500 \
         --button=Snapper:0 \
         --button=Timeshift:1 \
         --button=Cancel:2 \
