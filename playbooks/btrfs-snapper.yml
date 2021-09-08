@@ -12,17 +12,6 @@
     register: username
   - debug: var=username.stdout
 
-#  - name: Check if snapper exists
-#    stat:
-#      path: /usr/bin/snapper
-#    register: snapper_present
-    
-  - name: Abort if the snapper present on system
-    fail:
-      msg: "Snapper present in your system! Exit..."
-    when: snapper_present
-    tags:
-      - quick_exit
 
   - name: Install snapper and snapper-gui-git
     kewlfft.aur.aur:
