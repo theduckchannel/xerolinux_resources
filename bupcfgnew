@@ -6,7 +6,7 @@ fstype=$(df -Th / | sed -n 2p |  cut -d" " -f 7)
 
 
 timeshift_ext4() {
-    echo "teste ext"
+    ansible-playbook $(pwd)/playbooks/ext4-timeshift.yml
 } 
 
 
