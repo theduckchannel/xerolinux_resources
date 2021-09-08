@@ -1,0 +1,100 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+  - name: Find Current Dir 
+    shell: pwd
+    register: current_dir
+  - debug: var=current_dir.stdout
+
+  - name: Get Username 
+    become: false
+    shell: whoami
+    register: username
+  - debug: var=username.stdout
+   
+   - name: Install snapper and snapper-gui-git
+    kewlfft.aur.aur:
+      name: 
+        - snapper
+        - snapper-gui-git
+        - snap-pac-grub
+      use: paru
+      state: present
+    become: yes
+    become_user: aur_builder
+
+  - name: Config /.snapshots Subvolume
+    shell: |
+      sudo umount /.snapshots
+      sudo rm -rf /.snapshots
+      sudo snapper -c root create-config /
+      sudo btrfs subvolume delete /.snapshots
+      sudo mkdir /.snapshots
+      sudo chmod a+rx /.snapshots
+      sudo chmod 750 /.snapshots
+      sudo chown :wheel /.snapshots
+   
+  - name: /etc/snapper/configs/root (Snapper Users)
+    ansible.builtin.lineinfile:
+      path: /etc/snapper/configs/root
+      regexp: '^ALLOW_USERS=""'
+      line: "ALLOW_USERS=\"{{username.stdout}}\""
+ 
+
+  - name: /etc/snapper/configs/root (Snapper Limists for timeline cleanup 1)
+    ansible.builtin.lineinfile:
+      path: /etc/snapper/configs/root
+      regexp: '^TIMELINE_LIMIT_YEARLY.*'
+      line: 'TIMELINE_LIMIT_YEARLY="0"'
+ 
+  - name: /etc/snapper/configs/root (Snapper Limists for timeline cleanup 2)
+    ansible.builtin.lineinfile:
+      path: /etc/snapper/configs/root
+      regexp: '^TIMELINE_LIMIT_MONTHLY.*'
+      line: 'TIMELINE_LIMIT_MONTHLY="0"'
+
+  - name: /etc/snapper/configs/root (Snapper Limists for timeline cleanup 3)
+    ansible.builtin.lineinfile:
+      path: /etc/snapper/configs/root
+      regexp: '^TIMELINE_LIMIT_WEEKLY.*'
+      line: 'TIMELINE_LIMIT_WEEKLY="0"'
+
+
+  - name: /etc/snapper/configs/root (Snapper Limists for timeline cleanup 4)
+    ansible.builtin.lineinfile:
+      path: /etc/snapper/configs/root
+      regexp: '^TIMELINE_LIMIT_DAILY.*'
+      line: 'TIMELINE_LIMIT_DAILY="7"'
+
+  - name: /etc/snapper/configs/root (Snapper Limists for timeline cleanup 5)
+    ansible.builtin.lineinfile:
+      path: /etc/snapper/configs/root
+      regexp: '^TIMELINE_LIMIT_HOURLY.*'
+      line: 'TIMELINE_LIMIT_HOURLY="5"'
+
+
+  - name: Enable snapper-timeline.timer
+    ansible.builtin.systemd:
+      name: snapper-timeline.timer
+      state: started
+      enabled: yes
+
+  - name: Enable snapper-cleanup.timer
+    ansible.builtin.systemd:
+      name: snapper-cleanup.timer
+      state: started
+      enabled: yes
+ 
+  - name: Enable grub-btrfs
+    ansible.builtin.systemd:
+      name: grub-btrfs.path
+      state: started
+      enabled: yes
+
+  - name: First Snapshot
+    shell: snapper -c root create --description "Xerolinux fresh install"
+
+
+
+
