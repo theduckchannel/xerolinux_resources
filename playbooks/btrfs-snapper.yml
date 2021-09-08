@@ -12,6 +12,19 @@
     shell: whoami
     register: username
   - debug: var=username.stdout
+
+  - name: Create the `aur_builder` user
+    ansible.builtin.user:
+      name: aur_builder
+      create_home: yes
+      group: wheel
+
+  - name: Allow the `aur_builder` user to run `sudo pacman` without a password
+    ansible.builtin.lineinfile:
+      path: /etc/sudoers.d/11-install-aur_builder
+      line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
+      create: yes
+      validate: 'visudo -cf %s'    
    
   - name: Install snapper and snapper-gui-git
     kewlfft.aur.aur:
@@ -95,6 +108,10 @@
   - name: First Snapshot
     shell: snapper -c root create --description "Xerolinux fresh install"
 
-
+  - name: Remove the user 'aur_builder'
+    ansible.builtin.user:
+      name: aur_builder
+      state: absent
+      remove: yes
 
 
