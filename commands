@@ -1,2 +1,3 @@
 sudo mkdir /btrfsroot
 sudo mount -t btrfs -o subvolid=5 /dev/sda2 /btrfsroot
+sudo rollback 1
