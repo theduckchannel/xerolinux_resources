@@ -9,17 +9,16 @@ fstype=$(df -Th / | sed -n 2p |  cut -d" " -f 7)
 
 
 timeshift_ext4() {
-    ansible-playbook $(pwd)/playbooks/ext4-timeshift.yml
+    ansible-playbook $(pwd)/playbooks/ext4-timeshift.yml -i $(pwd)/playbooks/hosts
 } 
 
 
-
 btrfs_snapper() {
-    ansible-playbook $(pwd)/playbooks/btrfs-snapper.yml
+    ansible-playbook $(pwd)/playbooks/btrfs-snapper.yml -i $(pwd)/playbooks/hosts
 }
 
 btrfs_timeshit() {
-   ansible-playbook $(pwd)/playbooks/btrfs-timeshift.yml
+    ansible-playbook $(pwd)/playbooks/btrfs-timeshift.yml -i $(pwd)/playbooks/hosts
 }
 
 timeshift_question () {
